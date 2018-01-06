@@ -1,0 +1,143 @@
+[
+  [
+    "Shreya Hospital",
+    "Fortis Hospital, Nagarbhavi",
+    "BGS Gleneagles Global Hospitals",
+    "Medsol Hospital",
+    "Bhagwan Mahaveer Jain Hospital Girinagar",
+    "Dhanush Hospital",
+    "Essential Hospital",
+    "Shobha Hospital",
+    "Bharathy Hospital",
+    "Maharaja Agrasen Hospital",
+    "Unity Lifeline Hospital India Private Limited",
+    "Sidvin Hospital Private Limited",
+    "Punya Hospital",
+    "ESIC Hospital",
+    "Sagar Hospitals Kumaraswamy Layout",
+    "Sri Sai Ram Hospital",
+    "Brindhavvan Areion Hospital",
+    "Rajnandini Hospital",
+    "Panacea Hospital"
+  ],
+  [
+    "Kengeri Satellite Town, Bengaluru, Karnataka 560060, India",
+    "Building No. 119, Survey No. 23 80 Feet Road, Gurukrupa Layout,, Nagarbhavi 2nd Stage, Bengaluru, Karnataka 560072, India",
+    "67, Uttarahalli Road, Fort Kengeri, Bengaluru, Karnataka 560060, India",
+    "# 3 P(2), 60 feet Road, 1st Block, Jnanabharathi Layout, Bengaluru, Karnataka 560059, India",
+    "Girinagar, Banashankari 3rd Stage, Alavahalli Extension, Site No. 1 and 2, 6th Cross, 3rd Main, Bengaluru, Karnataka 560085, India",
+    "No. 63, Byraveshwara Nagar, 2nd Main, Moodalapalya, Nagarabhavi Main Road, Moodalpalya Main Rd, Bengaluru, Karnataka 560072, India",
+    "42, Outer Ring Road, Marilingappa Extension, Nagarbhavi, Bengaluru, Karnataka 560072, India",
+    "No. 29 & 30, Nagarbhavi Main Road, Opp. Prashant Nagar bus stop, Vijayanagar, Bengaluru, Karnataka 560040, India",
+    "4, Nagarbhavi Main Road, Opposite-Cordial School, Prashanth Nagar, Bengaluru, Karnataka 560079, India",
+    "15th A Main Road, 17th Cross Road, 2nd Stage, Padmanabha Nagar, Banashankari, Bengaluru, Karnataka 560070, India",
+    "No. 193, 80 Feet Road, 2nd Stage, 2nd Block, Nagarbhavi, Bengaluru, Karnataka 560072, India",
+    "1031, 6th Block, Rajaji Nagar, 20th Main Road,Rajajinagar 5th Block, Bengaluru, Karnataka 560010, India",
+    "52/10, 80 Feet Ring Rd, A D Halli, 2nd Stage, KHB Colony, Basaveshwar Nagar, Bengaluru, Karnataka 560079, India",
+    "3rd Cross Road, Thyagaraja Nagar, Basavanagudi, Bengaluru, Karnataka 560070, India",
+    "Shavige Malleshwara Hills, Behind Dayananda Sagar Institution Campus, Kumaraswamy Layout, Bengaluru, Karnataka 560078, India",
+    "Building No 6, HBCS Layout, Jayachamarajendra Industrial Layout, Yelchenahalli Ist Stage, Kanakapura Main Road, Bengaluru, Karnataka, India",
+    "17, 4th Main Rd, Kamalanagar, Chamrajpet, Bengaluru, Karnataka 560018, India",
+    "3, Old Bank Colony, 6th Cross, Konanakunte, Bengaluru, Karnataka 560062, India",
+    "334, 8th Main, 3rd Stage, Basaveshwar Nagar, Bengaluru, Karnataka 560079, India"
+  ],
+  [
+    3,
+    2.7,
+    3.2,
+    4.6,
+    4.1,
+    3.2,
+    3.1,
+    3.5,
+    3.8,
+    3.5,
+    3.5,
+    3.4,
+    3.4,
+    2.3,
+    2.5,
+    2.8,
+    4.1,
+    3.2,
+    2.9
+  ],
+  [
+    {
+      "lat": 12.921426,
+      "lng": 77.483197
+    },
+    {
+      "lat": 12.95951,
+      "lng": 77.511326
+    },
+    {
+      "lat": 12.902959,
+      "lng": 77.4974424
+    },
+    {
+      "lat": 12.9311844,
+      "lng": 77.4929961
+    },
+    {
+      "lat": 12.944157,
+      "lng": 77.53725089999999
+    },
+    {
+      "lat": 12.9654455,
+      "lng": 77.52315469999999
+    },
+    {
+      "lat": 12.9748653,
+      "lng": 77.509609
+    },
+    {
+      "lat": 12.9755518,
+      "lng": 77.5313312
+    },
+    {
+      "lat": 12.976126,
+      "lng": 77.53239099999999
+    },
+    {
+      "lat": 12.9159501,
+      "lng": 77.554811
+    },
+    {
+      "lat": 12.9819005,
+      "lng": 77.5108967
+    },
+    {
+      "lat": 12.9824213,
+      "lng": 77.5493608
+    },
+    {
+      "lat": 12.9862578,
+      "lng": 77.53748139999999
+    },
+    {
+      "lat": 12.9310011,
+      "lng": 77.5647469
+    },
+    {
+      "lat": 12.9078995,
+      "lng": 77.5649299
+    },
+    {
+      "lat": 12.8943704,
+      "lng": 77.56827
+    },
+    {
+      "lat": 12.9577848,
+      "lng": 77.56906959999999
+    },
+    {
+      "lat": 12.8845593,
+      "lng": 77.5701519
+    },
+    {
+      "lat": 12.9915383,
+      "lng": 77.5386122
+    }
+  ]
+]
