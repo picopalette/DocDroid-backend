@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Case Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+    <script type="text/javascript" href="static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" href="static/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="static/css/w3.css"/>
+    <link rel="stylesheet" href="static/css/color.css"/>
+  </head>
+
+
+  <body class="stdpc">
+
+    <!-- Nav Bar -->
+
+    <nav class="navbar navbar-inverse stdsc">
+        <div class="container-fluid">
+            <div class="navbar-header">
+ 
+            <a style="color: #FFFFFF;" class="navbar-brand">Welcome {{ current_user.name }} ! </a>
+            </div>
+            <ul class="nav navbar-nav">
+                 <li class="active"><a href="#">Dash Board</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a style="color: #FFFFFF;" href="/showStudentProfile"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                <li><a style="color: #FFFFFF;" href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <h2 style="color: #FFFFFF;"> Active Cases : </h2>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="panel panel-default">
+                    <table class="table table-striped w3-light-gray w3-round">
+                        <thead class="stdsc">
+                        <tr style="color: #FFFFFF;">
+                            <th>Patient Name: </th>
+                            <th>Ambulance Driver Name: </th>
+                            <th>Problem: </th>
+                            <th>Status: </th>
+                            <th>Report : </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                            {% if not new %}
+                            <tr class="stdlc">
+                                <td>No Cases Available... </td>
+                            </tr>
+                            {% endif %}
+
+                            {% if new %}
+                              {% for i in new %}
+                                {% if i.hospital == current_user.name %}
+                                <tr>
+                                    <td> {{ i.patient_name }} </td>
+                                    <td> {{ i.ambulance_driver }} </td>
+                                    <td> {{ i.problem }} </td>
+                                    <td> {{ i.status }} </td>
+                                    <td>
+                                    <button class="btn btn-primary stdsc"> Upload </button>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                              {% endfor %}
+                            {% endif %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <h2 style="color: #FFFFFF;"> Archived Cases : </h2>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="panel panel-default">
+                    <table class="table table-striped w3-light-gray w3-round">
+                        <thead class="stdsc">
+                        <tr style="color: #FFFFFF;">
+                            <th>Patient Name: </th>
+                            <th>Ambulance Driver Name: </th>
+                            <th>Problem: </th>
+                            <th>Status: </th>
+                            <th>Report : </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                            {% if not new %}
+                            <tr class="stdlc">
+                                <td>No Cases Available... </td>
+                            </tr>
+                            {% endif %}
+
+                            {% if new %}
+                              {% for i in new %}
+                                <tr>
+                                    <td> {{ i.patient_name }} </td>
+                                    <td> {{ i.ambulance_driver }} </td>
+                                    <td> {{ i.problem }} </td>
+                                    <td> {{ i.status }} </td>
+                                    <td>
+                                    <button class="btn btn-primary stdsc"> Upload </button>
+                                    </td>
+                                </tr>
+                              {% endfor %}
+                            {% endif %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+    </div>
+
+  </body>
+</html>

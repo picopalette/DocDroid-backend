@@ -32,14 +32,25 @@ class Hospital(db.Document):
 	password = db.StringField()
 	address = db.StringField()
 	location = db.ListField(db.FloatField())
-	blood_units = db.DictField(db.IntField(),required=False)
+	blood_units = db.DictField(db.IntField())
 
+	def is_authenticated(self):
+		return True
+
+	def is_active(self):
+		return True
+
+	def is_anonymous(self):
+		return False
+
+	def get_id(self):
+		return self.email
 
 	def create(self,obj):
 		self.name = obj["name"]
 		self.email = obj["email"]
 		self.password = obj["password"]
-		# blood_units = obj["blood_units"]
+		self.	blood_units = obj["blood_units"]
 		self.address = obj["address"]
 		self.location = obj["location"]
 
