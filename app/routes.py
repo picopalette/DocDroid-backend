@@ -146,3 +146,20 @@ def getUserProfile():
 		return response
 	obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
 	return jsonify(obj.toJSON())
+
+@app.route('/api/sos', methods=['POST'])
+def sos():
+	content = request.get_json()
+	if 'user_id' not in request.cookies:
+		body = dict()
+		body['error'] = 'Not Authorized'
+		response = current_app.response_class(
+			response = json.dumps(body),	
+			status=401,
+			mimetype="application/json"
+		)
+		return response
+	obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+	userloc = list(content['lat'], content['log'])
+	problem = content['problem']
+	
