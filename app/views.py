@@ -22,7 +22,7 @@ def signUpHospital():
 	address = request.form['address']
 	lat = request.form['lat']
 	log = request.form['log']
-	location = [float(lat),float(log)]
+	location = { "lat" : float(lat), "log": float(log) }
 	blood_units = { "O+" : 0, "O-" : 0, "A+": 0, "A-": 0, "B+": 0, "B-":0, "AB+":0, "AB-":0 }
 
 	content = { "name": name, "email": email, "password": password, "address": address, "location": location, "blood_units": blood_units }
@@ -67,8 +67,8 @@ def logout():
 @app.route('/showDashboard',methods = ['POST','GET'])
 @login_required
 def showDashboard():
-	old = models.Case.query.filter(models.Case.status == False)
-	new = models.Case.query.filter(models.Case.status == True)
+	old = models.Case.query.filter(models.Case.active == False)
+	new = models.Case.query.filter(models.Case.active == True)
 	return render_template('dash.html',new=new,old=old)
 
 
@@ -77,4 +77,10 @@ def showDashboard():
 def showBloodUnits():
 
 	return render_template('bloodunits.html')
+
+@app.route('/updateBloodUnits',methods = ['POST','GET'])
+@login_required
+def updateBloodUnits():
+
+	return redirect(url_for('showBloodUnits'))
 

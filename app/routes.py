@@ -147,10 +147,27 @@ def getUserProfile():
 	obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
 	return jsonify(obj.toJSON())
 
-@app.route('/api/sos', methods=['POST'])
-def sos():
-	content = request.get_json()
-	if 'user_id' not in request.cookies:
+
+# @app.route('/api/sos', methods=['POST'])
+# def sos():
+# 	content = request.get_json()
+# 	if 'user_id' not in request.cookies:
+			# obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+			# userloc = list(content['lat'], content['log'])
+			# problem = content['problem']
+
+
+@app.route('/api/getLocation', methods=['GET'])
+def getLocation():
+	if 'user_id' in request.cookies:
+		obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+		loc = obj['location']
+		return jsonify(loc)
+	elif 'driver_id' in request.cookies:
+		obj = models.Ambulance.query.filter(models.Ambulance.phone == request.cookies['driver_id']).first()
+		loc = obj['location']
+		return jsonify(loc)
+	else:
 		body = dict()
 		body['error'] = 'Not Authorized'
 		response = current_app.response_class(
@@ -159,7 +176,42 @@ def sos():
 			mimetype="application/json"
 		)
 		return response
-	obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
-	userloc = list(content['lat'], content['log'])
-	problem = content['problem']
-	
+
+
+@app.route('/api/setLocation', methods=['POST'])
+def setLocation():
+	if 'user_id' in request.cookies:
+		content = request.get_json()
+		obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+		obj.location = content
+		obj.save()
+		body = dict()
+		body['saved']="success"
+		response = current_app.response_class(
+			response = json.dumps(body),	
+			status=200,
+			mimetype="application/json"
+		)
+		return response
+	elif 'driver_id' in request.cookies:
+		obj = models.Ambulance.query.filter(models.Ambulance.phone == request.cookies['driver_id']).first()
+		obj.location = content
+		obj.save()
+		body = dict()
+		body['saved']="success"
+		response = current_app.response_class(
+			response = json.dumps(body),	
+			status=200,
+			mimetype="application/json"
+		)
+		return response
+	else:
+		body = dict()
+		body['error'] = 'Not Authorized'
+		response = current_app.response_class(
+			response = json.dumps(body),	
+			status=401,
+			mimetype="application/json"
+		)
+		return response
+
