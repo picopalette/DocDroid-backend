@@ -66,22 +66,12 @@ class Case(db.Document):
 	ambulance_driver = db.DocumentField(Ambulance,required=False)
 	hospital = db.DocumentField(Hospital)
 	report = db.StringField(required=False)
+	problem = db.StringField()
+	status = db.BoolField(required=False)
 
 	def create(self,obj):
 		self.patient_name = obj["patient_name"]	
 		# ambulance_driver = obj["ambulance_driver"]	
 		self.hospital = obj["hospital"]	
+		self.problem = obj["problem"]
 		# report = obj["report"]		
-
-
-class CaseHistory(db.Document):
-	patient_name = db.DocumentField(User)
-	ambulance_driver = db.DocumentField(Ambulance,required=False)
-	hospital = db.DocumentField(Hospital)
-	report = db.StringField(required=False)
-
-	def create(self,obj):
-		self.patient_name = obj["patient_name"]	
-		# ambulance_driver = obj["ambulance_driver"]	
-		self.hospital = obj["hospital"]	
-		# report = obj["report"]
