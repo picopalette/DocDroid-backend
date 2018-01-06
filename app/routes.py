@@ -1,4 +1,5 @@
 from app import app,models,lm
+from ml import geotest
 import os
 from flask_login import LoginManager,login_required,login_user,logout_user
 from app import db
@@ -148,13 +149,17 @@ def getUserProfile():
 	return jsonify(obj.toJSON())
 
 
-# @app.route('/api/sos', methods=['POST'])
-# def sos():
-# 	content = request.get_json()
-# 	if 'user_id' not in request.cookies:
-			# obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
-			# userloc = list(content['lat'], content['log'])
-			# problem = content['problem']
+@app.route('/api/sos', methods=['POST'])
+def sos():
+	content = request.get_json()
+	if 'user_id' in request.cookies:
+			obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+			userloc = str(content["lat"]) + "," + str(content["log"])
+			bestHospital = geotest.predictHospital(userloc)
+			problem = content['problem']
+			hospital = models.Hospital.query.filter(models.Hospital.location == bestHospital).first()
+			content['email'] = hospital.email
+	return jsonify(content)
 
 
 @app.route('/api/getLocation', methods=['GET'])

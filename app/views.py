@@ -22,7 +22,7 @@ def signUpHospital():
 	address = request.form['address']
 	lat = request.form['lat']
 	log = request.form['log']
-	location = { "lat" : float(lat), "log": float(log) }
+	location = { "lat" : lat, "log": log }
 	blood_units = { "O+" : 0, "O-" : 0, "A+": 0, "A-": 0, "B+": 0, "B-":0, "AB+":0, "AB-":0 }
 
 	content = { "name": name, "email": email, "password": password, "address": address, "location": location, "blood_units": blood_units }
