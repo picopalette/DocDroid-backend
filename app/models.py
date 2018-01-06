@@ -20,11 +20,24 @@ class User(db.Document):
 		self.blood_group = obj["blood_group"]
 		self.blood_donate = False
 		self.address = obj["address"]
+		self.emergency_contacts = list()
+		self.friends = list()
 		# self.issues = obj["issues"]
-		# self.emergency_contacts = obj["emergency_contacts"]
 		# self.aadhar = obj["aadhar"]
 		# self.location = obj["location"]
 		# self.friends = obj["friends"]
+
+	def toJSON(self):
+		json = dict()
+		json['name'] = self.name
+		json['phone'] = self.phone
+		json['blood_group'] = self.blood_group
+		json['blood_donate'] = self.blood_donate
+		json['address'] = self.address
+		json['issues'] = self.issues
+		json['aadhar'] = self.aadhar
+		return json
+
 
 class Hospital(db.Document):
 	name = db.StringField()
@@ -68,10 +81,12 @@ class Case(db.Document):
 	report = db.StringField(required=False)
 	problem = db.StringField()
 	status = db.BoolField(required=False)
+	active = db.BoolField()
 
 	def create(self,obj):
 		self.patient_name = obj["patient_name"]	
 		# ambulance_driver = obj["ambulance_driver"]	
 		self.hospital = obj["hospital"]	
 		self.problem = obj["problem"]
+		self.active = True
 		# report = obj["report"]		

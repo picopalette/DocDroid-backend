@@ -18,7 +18,9 @@ def signUpUser():
 	obj = models.User()
 	obj.create(content)
 	obj.save()
-	return jsonify(content)
+	response = jsonify(content)
+	response.set_cookie('user_id',value=obj.phone)
+	return response
 
 
 @app.route('/api/signUpDriver',methods = ['POST','GET'])
@@ -27,7 +29,9 @@ def signUpDriver():
 	obj = models.Ambulance()
 	obj.create(content)
 	obj.save()
-	return jsonify(content)
+	response = jsonify(content)
+	response.set_cookie('driver_id',value=obj.phone)
+	return response
 
 
 @app.route('/api/loginUser',methods = ['POST','GET'])
@@ -40,9 +44,7 @@ def loginUser():
 			status=200,
 			mimetype="application/json"
 		);	
-
-		response.set_cookie('id',value=obj.phone)
-
+		response.set_cookie('user_id',value=obj.phone)
 	else:
 		response = current_app.response_class(
 			response = json.dumps(content),
@@ -61,16 +63,86 @@ def loginDriver():
 			response = json.dumps(content),
 			status=200,
 			mimetype="application/json"
-		);	
-
-		response.set_cookie('id',value=obj.phone)
-
+		)
+		response.set_cookie('driver_id',value=obj.phone)
 	else:
 		response = current_app.response_class(
 			response = json.dumps(content),	
 			status=401,
 			mimetype="application/json"
-		);	
+		)
 	return response
 
-	
+@app.route('/api/updateUserProfile', methods= ['POST'])
+def updateUserProfile():
+	content = request.get_json()
+	body = dict()
+	if 'user_id' not in request.cookies:
+		body['error'] = 'Not Authorized'
+		response = current_app.response_class(
+			response = json.dumps(body),	
+			status=401,
+			mimetype="application/json"
+		)
+		return response
+	obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+	print(obj)
+	obj.name = content["name"]
+	obj.blood_group = content["blood_group"]
+	obj.blood_donate = content['blood_donate']
+	obj.address = content["address"]
+	obj.issues = content["issues"]
+	obj.aadhar = content["aadhar"]
+	obj.save()
+	body['saved'] = 'success'
+	return jsonify(body)
+
+@app.route('/api/getEmergencyContacts', methods=['GET'])
+def getEmergencyContacts():
+	if 'user_id' not in request.cookies:
+		body = dict()
+		body['error'] = 'Not Authorized'
+		response = current_app.response_class(
+			response = json.dumps(body),	
+			status=401,
+			mimetype="application/json"
+		)
+		return response
+	obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+	return jsonify(obj.emergency_contacts)
+
+@app.route('/api/updateEmergencyContacts', methods=['POST'])
+def updateEmergencyContacts():
+	content = request.get_json()
+	if 'user_id' not in request.cookies:
+		body = dict()
+		body['error'] = 'Not Authorized'
+		response = current_app.response_class(
+			response = json.dumps(body),	
+			status=401,
+			mimetype="application/json"
+		)
+		return response
+	obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+	obj.emergency_contacts = content[:]
+	obj.save()
+	for num in content:
+		friend = models.User.query.filter(models.User.phone == num).first()
+		if friend:
+			friend.friends.append(obj.phone)
+			friend.save()
+	return jsonify(obj.emergency_contacts)
+
+@app.route('/api/getUserProfile', methods=['GET'])
+def getUserProfile():
+	if 'user_id' not in request.cookies:
+		body = dict()
+		body['error'] = 'Not Authorized'
+		response = current_app.response_class(
+			response = json.dumps(body),	
+			status=401,
+			mimetype="application/json"
+		)
+		return response
+	obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+	return jsonify(obj.toJSON())

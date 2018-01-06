@@ -52,8 +52,9 @@ saver = tf.train.Saver()
 sess = tf.Session()
 sess.run(init)
 
-saver.restore(sess, "G:\holmes\holmes-python\Docdroid Backend\model.ckpt")
+saver.restore(sess, "./model.ckpt")
 
 
 final_result = sess.run(y,feed_dict={x:myinput})
 print(final_result)
+print(hospital_ratings, travel_time)
