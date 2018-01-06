@@ -8,7 +8,7 @@ from werkzeug import generate_password_hash, check_password_hash
 
 @app.route('/')
 def main():
-    return render_template('index.html')
+    return redirect(url_for('showSignUpHospital'))
 
 @app.route('/showSignUpHospital',methods = ['POST','GET'])
 def showSignUpHospital():
@@ -23,8 +23,9 @@ def signUpHospital():
 	lat = request.form['lat']
 	log = request.form['log']
 	location = [float(lat),float(log)]
+	blood_units = { "O+" : 0, "O-" : 0, "A+": 0, "A-": 0, "B+": 0, "B-":0, "AB+":0, "AB-":0 }
 
-	content = { "name": name, "email": email, "password": password, "address": address, "location": location }
+	content = { "name": name, "email": email, "password": password, "address": address, "location": location, "blood_units": blood_units }
 	obj = models.Hospital()
 	obj.create(content)
 	obj.save() 
@@ -34,19 +35,18 @@ def signUpHospital():
 
 @app.route('/showLoginHospital',methods = ['POST','GET'])
 def showLoginHospital():
-	return render_template('login.html')
-
+	return render_template('signup.html')
 
 @app.route('/loginHospital',methods = ['POST','GET'])
 def loginHospital():
 	email = request.form['email']
 	password = request.form['password']
-	obj = models.Hospital.filter(models.Hospital.email == email,models.Hospital.password == password).first()
+	obj = models.Hospital.query.filter(models.Hospital.email == email,models.Hospital.password == password).first()
 
 	if obj is not None:
 		login_user(obj)
 		flash("Successfully Logged In")
-		return redirect(url_for('main'))
+		return redirect(url_for('showDashboard'))
 	else:
 		flash("Invalid Credentials")
 		return redirect(url_for('showLoginHospital'))
@@ -61,3 +61,20 @@ def load_user(email):
 def logout():
 	logout_user()
 	return redirect(url_for('main'))
+
+# Dashboard
+
+@app.route('/showDashboard',methods = ['POST','GET'])
+@login_required
+def showDashboard():
+	old = models.Case.query.filter(models.Case.status == False)
+	new = models.Case.query.filter(models.Case.status == True)
+	return render_template('dash.html',new=new,old=old)
+
+
+@app.route('/showBloodUnits',methods = ['POST','GET'])
+@login_required
+def showBloodUnits():
+
+	return render_template('bloodunits.html')
+
