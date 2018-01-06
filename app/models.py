@@ -10,7 +10,7 @@ class User(db.Document):
 	issues = db.StringField(required=False)
 	emergency_contacts = db.ListField(db.StringField(),required=False)
 	aadhar = db.StringField(required=False)
-	location = db.DictField(db.FloatField(),required=False)
+	location = db.DictField(db.StringField(),required=False)
 	friends = db.ListField(db.StringField(),required=False)
 
 	def create(self,obj):
@@ -22,7 +22,7 @@ class User(db.Document):
 		self.address = obj["address"]
 		self.emergency_contacts = list()
 		self.friends = list()
-		self.location = { "lat": 0, "log": 0}
+		self.location = { "lat": "0", "log": "0"}
 		# self.issues = obj["issues"]
 		# self.aadhar = obj["aadhar"]
 		# self.location = obj["location"]
@@ -45,8 +45,8 @@ class Hospital(db.Document):
 	email = db.StringField()
 	password = db.StringField()
 	address = db.StringField()
-	location = db.DictField(db.FloatField())
-	blood_units = db.DictField(db.IntField())
+	location = db.DictField(db.StringField())
+	blood_units = db.DictField(db.FloatField())
 
 	def is_authenticated(self):
 		return True
@@ -75,14 +75,14 @@ class Ambulance(db.Document):
 	phone = db.StringField()
 	status = db.StringField(required=False)
 	password = db.StringField()
-	location = db.DictField(db.FloatField(), required=False)
+	location = db.DictField(db.StringField(), required=False)
 
 	def create(self,obj):
 		self.name = obj["name"]
 		self.agency = obj["agency"]
 		self.password = obj["password"]
 		self.phone = obj["phone"]
-		self.location = { "lat": 0, "log": 0}
+		self.location = { "lat": "0", "log": "0"}
 		# self.status = obj["status"]
 		# self.location = obj["location"]
 
