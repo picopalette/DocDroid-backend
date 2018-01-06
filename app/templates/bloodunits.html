@@ -22,7 +22,10 @@
             <a style="color: #FFFFFF;" class="navbar-brand">Welcome {{ current_user.name }} ! </a>
             </div>
             <ul class="nav navbar-nav">
-                 <li class="active"><a href="#">Dash Board</a></li>
+                 <li ><a href="/showDashboard">Dash Board</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                 <li class="active"><a href="#">Blood Units</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a style="color: #FFFFFF;" href="/showStudentProfile"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
@@ -30,6 +33,114 @@
             </ul>
         </div>
     </nav>
+
+    <div id="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <form action="/updateBloodUnits" method="POST" autocomplete="on">
+                    <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="color: #FFFFFF;"> A +ve: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" name="qa+" min="0" >
+                        </div>
+                    </div>
+                    </p>
+
+                    <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="color: #FFFFFF;"> A -ve: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" name="qa-" min="0" >
+                        </div>
+                    </div>
+                    </p>
+
+                    <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="color: #FFFFFF;"> B +ve: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" name="qb+" min="0" >
+                        </div>
+                    </div>
+                    </p>
+
+                    <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="color: #FFFFFF;"> B -ve: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" name="qb-" min="0" >
+                        </div>
+                    </div>
+                    </p>
+
+                    <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="color: #FFFFFF;"> O +ve: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" name="qo+" min="0" >
+                        </div>
+                    </div>
+                    </p>
+
+                    <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="color: #FFFFFF;"> O -ve: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" name="qo-" min="0" >
+                        </div>
+                    </div>
+                    </p>
+
+                    <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="color: #FFFFFF;"> AB +ve: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" name="qab+" min="0" >
+                        </div>
+                    </div>
+                    </p>
+
+                    <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="color: #FFFFFF;"> AB -ve: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" name="qab-" min="0" >
+                        </div>
+                    </div>
+                    </p>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">     
+                            <input type="submit" value="Update"/> 
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+
+
 
   </body>
 </html>
