@@ -11,7 +11,7 @@ def predictHospital(loc):
     y_val = tf.add(tf.matmul(x,w),b)
     y = tf.nn.softmax(y_val)
 
-    gmaps = googlemaps.Client(key="AIzaSyCThwYhTx35MT4_LRUxLC_GnvfE-RPA67c")
+    gmaps = googlemaps.Client(key="AIzaSyDnCGt9WkPVZ_D0C-dPPs4JjKs20ufwkU0")
 
     result = gmaps.places("hospital", location=loc, radius=5000, language=None,
                min_price=None, max_price=None, open_now=True, type=None,
@@ -82,4 +82,4 @@ def predictHospital(loc):
     #print(hospital_names[hosp_index], hospital_addrs[hosp_index], hospital_ratings[hosp_index], travel_time[hosp_index], hospital_locs[hosp_index])
 
 if __name__ == "__main__":
-    predictHospital("12.9230363,77.4988752")
+    print(predictHospital("12.9230363,77.4988752"))
