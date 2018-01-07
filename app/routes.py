@@ -175,8 +175,8 @@ def sos():
 					mini = diff
 					bestDriver = i
 
-			bestDriver.status="active"
-			bestDriver.save()
+			#bestDriver.status="active"
+			#bestDriver.save()
 
 
 			content = { "patient_name": obj.name,"ambulance_driver": bestDriver.name,"hospital": hospital.name,"problem": problem,"issues": obj.issues, "patient_id":obj.phone,"driver_id":bestDriver.phone }
