@@ -88,10 +88,7 @@ def updateUserProfile():
 		return response
 	obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
 	print(obj)
-	obj.name = content["name"]
-	obj.blood_group = content["blood_group"]
 	obj.blood_donate = content['blood_donate']
-	obj.address = content["address"]
 	obj.issues = content["issues"]
 	obj.aadhar = content["aadhar"]
 	obj.save()
@@ -136,16 +133,19 @@ def updateEmergencyContacts():
 
 @app.route('/api/getUserProfile', methods=['GET'])
 def getUserProfile():
+	body = dict()
+	body['error'] = 'Not Authorized'
+	response = current_app.response_class(
+	response = json.dumps(body),	
+	status=401,
+	mimetype="application/json"
+	)
 	if 'user_id' not in request.cookies:
-		body = dict()
-		body['error'] = 'Not Authorized'
-		response = current_app.response_class(
-			response = json.dumps(body),	
-			status=401,
-			mimetype="application/json"
-		)
 		return response
 	obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+	if obj is None:
+		response.set_cookie('user_id', value='', expires=0)
+		return response
 	return jsonify(obj.toJSON())
 
 

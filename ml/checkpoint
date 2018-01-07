@@ -1,2 +1,2 @@
-model_checkpoint_path: "G:\\holmes\\holmes-python\\Docdroid Backend\\model.ckpt"
-all_model_checkpoint_paths: "G:\\holmes\\holmes-python\\Docdroid Backend\\model.ckpt"
+model_checkpoint_path: "model.ckpt"
+all_model_checkpoint_paths: "model.ckpt"

@@ -23,7 +23,8 @@ class User(db.Document):
 		self.emergency_contacts = list()
 		self.friends = list()
 		self.location = { "lat": "0", "log": "0"}
-		# self.issues = obj["issues"]
+		self.issues = ""
+		self.aadhar = ""
 		# self.aadhar = obj["aadhar"]
 		# self.location = obj["location"]
 		# self.friends = obj["friends"]

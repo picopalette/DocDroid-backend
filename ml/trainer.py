@@ -41,7 +41,7 @@ for i in range (training_epochs):
         cc = sess.run(error,feed_dict={x:inputX,y_:inputY})
         print(cc)
 print("finished optimization")
-save_path = saver.save(sess, "G:\holmes\holmes-python\Docdroid Backend\model.ckpt")
+save_path = saver.save(sess, "model.ckpt")
 
 training_error = sess.run(error,feed_dict={x:inputX,y_:inputY})
 print("training error = ",training_error,"W= ", sess.run(w), "b= ", sess.run(b))
