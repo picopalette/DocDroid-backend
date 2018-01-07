@@ -56,7 +56,7 @@ def predictHospital(loc):
 
     #for i in range(len(hospital_ratings)):
     #    print(hospital_ratings[i], travel_time[i])
-    print(hospital_names,hospital_addrs,hospital_ratings,hospital_locs)
+    #print(hospital_names,hospital_addrs,hospital_ratings,hospital_locs)
 
     myinput =  np.column_stack((travel_time,hospital_ratings))
 
@@ -73,7 +73,11 @@ def predictHospital(loc):
     final_result = sess.run(y,feed_dict={x:myinput})
     ans = [row[0] for row in final_result]
     hosp_index = ans.index(max(ans))
-    return hospital_locs[hosp_index]
+    ans = dict()
+    ans['lat'] = str(hospital_locs[hosp_index]['lat'])
+    ans['log'] = str(hospital_locs[hosp_index]['lng'])
+
+    return ans
     #print(hosp_index)
     #print(hospital_names[hosp_index], hospital_addrs[hosp_index], hospital_ratings[hosp_index], travel_time[hosp_index], hospital_locs[hosp_index])
 

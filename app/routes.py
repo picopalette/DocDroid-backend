@@ -154,23 +154,45 @@ def sos():
 	content = request.get_json()
 	if 'user_id' in request.cookies:
 			obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
+			locdict = { 'lat': content['lat'], 'log': content['log']}
+			obj.location = locdict
+			obj.save()
 			userloc = str(content["lat"]) + "," + str(content["log"])
 			bestHospital = geotest.predictHospital(userloc)
+			#print(bestHospital)
 			problem = content['problem']
 			hospital = models.Hospital.query.filter(models.Hospital.location == bestHospital).first()
 			content['email'] = hospital.email
+			aobj = models.Ambulance.query.filter(models.Ambulance.status=="free").all()
+			diff = float(aobj[0].location['lat'])-float(bestHospital['lat'])
+			diff = diff + float(aobj[0].location['log'])-float(bestHospital['log'])
+			mini = diff
+			bestDriver = aobj[0]	
+			for i in aobj:
+				diff = float(i.location['lat'])-float(bestHospital['lat'])
+				diff = diff + float(i.location['log'])-float(bestHospital['log'])
+				if diff < mini:
+					mini = diff
+					bestDriver = i
+
+			bestDriver.status="active"
+			bestDriver.save()
+
+
+			content = { "patient_name": obj.name,"ambulance_driver": bestDriver.name,"hospital": hospital.name,"problem": problem,"issues": obj.issues, "patient_id":obj.phone,"driver_id":bestDriver.phone }
+			caseobj = models.Case()
+			caseobj.create(content)
+			caseobj.save()
+
 	return jsonify(content)
 
 
 @app.route('/api/getLocation', methods=['GET'])
 def getLocation():
-	if 'user_id' in request.cookies:
-		obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
-		loc = obj['location']
-		return jsonify(loc)
-	elif 'driver_id' in request.cookies:
-		obj = models.Ambulance.query.filter(models.Ambulance.phone == request.cookies['driver_id']).first()
-		loc = obj['location']
+	content = request.args.get('phone')
+	obj = models.Ambulance.query.filter(models.Ambulance.phone == content).first()
+	if obj is not None:	
+		loc = obj.location;
 		return jsonify(loc)
 	else:
 		body = dict()
@@ -185,31 +207,39 @@ def getLocation():
 
 @app.route('/api/setLocation', methods=['POST'])
 def setLocation():
-	if 'user_id' in request.cookies:
 		content = request.get_json()
-		obj = models.User.query.filter(models.User.phone == request.cookies['user_id']).first()
-		obj.location = content
-		obj.save()
-		body = dict()
-		body['saved']="success"
-		response = current_app.response_class(
-			response = json.dumps(body),	
-			status=200,
-			mimetype="application/json"
-		)
-		return response
-	elif 'driver_id' in request.cookies:
-		obj = models.Ambulance.query.filter(models.Ambulance.phone == request.cookies['driver_id']).first()
-		obj.location = content
-		obj.save()
-		body = dict()
-		body['saved']="success"
-		response = current_app.response_class(
-			response = json.dumps(body),	
-			status=200,
-			mimetype="application/json"
-		)
-		return response
+		obj = models.Ambulance.query.filter(models.Ambulance.phone == content['phone']).first()
+		if obj is not None:
+			loc = { "lat": content['lat'], "log": content['log']}
+			obj.location = loc
+			obj.save()
+			body = dict()
+			body['saved']="success"
+			response = current_app.response_class(
+				response = json.dumps(body),	
+				status=200,
+				mimetype="application/json"
+			)
+			return response
+		else:
+			body = dict()
+			body['error'] = 'Not Authorized'
+			response = current_app.response_class(
+				response = json.dumps(body),	
+				status=401,
+				mimetype="application/json"
+			)
+			return response
+
+
+@app.route('/api/getLocationUser', methods=['GET'])
+def getLocationUser():
+	content = request.args.get('phone')
+	obj = models.Case.query.filter(models.Case.driver_id == content).first()
+	if obj is not None:	
+		tempobj = models.User.query.filter(models.User.phone == obj.patient_id).first()
+		loc = tempobj.location
+		return jsonify(loc)
 	else:
 		body = dict()
 		body['error'] = 'Not Authorized'
@@ -219,4 +249,31 @@ def setLocation():
 			mimetype="application/json"
 		)
 		return response
+
+
+@app.route('/api/setLocationUser', methods=['POST'])
+def setLocationUser():
+		content = request.get_json()
+		obj = models.User.query.filter(models.User.phone == content['phone']).first()
+		if obj is not None:
+			loc = { "lat": content['lat'], "log": content['log']}
+			obj.location = loc
+			obj.save()
+			body = dict()
+			body['saved']="success"
+			response = current_app.response_class(
+				response = json.dumps(body),	
+				status=200,
+				mimetype="application/json"
+			)
+			return response
+		else:
+			body = dict()
+			body['error'] = 'Not Authorized'
+			response = current_app.response_class(
+				response = json.dumps(body),	
+				status=401,
+				mimetype="application/json"
+			)
+			return response
 

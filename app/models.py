@@ -76,7 +76,7 @@ class Ambulance(db.Document):
 	phone = db.StringField()
 	status = db.StringField(required=False)
 	password = db.StringField()
-	location = db.DictField(db.StringField(), required=False)
+	location = db.DictField(db.StringField())
 
 	def create(self,obj):
 		self.name = obj["name"]
@@ -90,17 +90,23 @@ class Ambulance(db.Document):
 
 class Case(db.Document):
 	patient_name = db.StringField()
-	ambulance_driver = db.StringField(required=False)
-	hospital = db.DocumentField(Hospital)
+	ambulance_driver = db.StringField()
+	patient_id = db.StringField()
+	driver_id = db.StringField()
+	hospital = db.StringField()
 	report = db.StringField(required=False)
+	issues = db.StringField()
 	problem = db.StringField()
 	status = db.BoolField(required=False)
 	active = db.BoolField()
 
 	def create(self,obj):
 		self.patient_name = obj["patient_name"]	
-		# ambulance_driver = obj["ambulance_driver"]	
+		self.ambulance_driver = obj["ambulance_driver"]	
 		self.hospital = obj["hospital"]	
 		self.problem = obj["problem"]
+		self.issues = obj["issues"]
+		self.patient_id = obj["patient_id"]
+		self.driver_id = obj["driver_id"]	
 		self.active = True
 		# report = obj["report"]		

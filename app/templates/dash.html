@@ -53,6 +53,7 @@
                             <th>Patient Name: </th>
                             <th>Ambulance Driver Name: </th>
                             <th>Problem: </th>
+                            <th>Previous Issues: </th>
                             <th>Status: </th>
                             <th>Report : </th>
                         </tr>
@@ -72,6 +73,7 @@
                                     <td> {{ i.patient_name }} </td>
                                     <td> {{ i.ambulance_driver }} </td>
                                     <td> {{ i.problem }} </td>
+                                    <td> {{ i.issues }} </td>
                                     <td> {{ i.status }} </td>
                                     <td>
                                     <button class="btn btn-primary stdsc"> Upload </button>
@@ -104,24 +106,26 @@
                             <th>Patient Name: </th>
                             <th>Ambulance Driver Name: </th>
                             <th>Problem: </th>
+                            <th>Previous Issues: </th>
                             <th>Status: </th>
                             <th>Report : </th>
                         </tr>
                         </thead>
 
                         <tbody>
-                            {% if not new %}
+                            {% if not old %}
                             <tr class="stdlc">
                                 <td>No Cases Available... </td>
                             </tr>
                             {% endif %}
 
-                            {% if new %}
-                              {% for i in new %}
+                            {% if old %}
+                              {% for i in old %}
                                 <tr>
                                     <td> {{ i.patient_name }} </td>
                                     <td> {{ i.ambulance_driver }} </td>
                                     <td> {{ i.problem }} </td>
+                                    <td> {{ i.issues }} </td>
                                     <td> {{ i.status }} </td>
                                     <td>
                                     <button class="btn btn-primary stdsc"> Upload </button>

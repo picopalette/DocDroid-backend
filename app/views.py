@@ -16,16 +16,20 @@ def showSignUpHospital():
 
 @app.route('/signUpHospital',methods = ['POST','GET'])
 def signUpHospital():
-	name = request.form['name']
-	email = request.form['email']
-	password = request.form['password']
-	address = request.form['address']
-	lat = request.form['lat']
-	log = request.form['log']
-	location = { "lat" : lat, "log": log }
-	blood_units = { "O+" : 0, "O-" : 0, "A+": 0, "A-": 0, "B+": 0, "B-":0, "AB+":0, "AB-":0 }
+	# name = request.form['name']
+	# email = request.form['email']
+	# password = request.form['password']
+	# address = request.form['address']
+	# lat = request.form['lat']
+	# log = request.form['log']
+	content = request.get_json()
 
-	content = { "name": name, "email": email, "password": password, "address": address, "location": location, "blood_units": blood_units }
+	location = { "lat" : content['lat'], "log": content['log'] }
+	blood_units = { "O+" : 0, "O-" : 0, "A+": 0, "A-": 0, "B+": 0, "B-":0, "AB+":0, "AB-":0 }
+	content['location']=location
+	content['blood_units']=blood_units
+
+	# content = { "name": name, "email": email, "password": password, "address": address, "location": location, "blood_units": blood_units }
 	obj = models.Hospital()
 	obj.create(content)
 	obj.save() 
@@ -67,8 +71,8 @@ def logout():
 @app.route('/showDashboard',methods = ['POST','GET'])
 @login_required
 def showDashboard():
-	old = models.Case.query.filter(models.Case.active == False)
-	new = models.Case.query.filter(models.Case.active == True)
+	old = models.Case.query.filter(models.Case.active == False).all()
+	new = models.Case.query.filter(models.Case.active == True).all()
 	return render_template('dash.html',new=new,old=old)
 
 
